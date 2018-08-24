@@ -1,0 +1,21 @@
+<project basedir="." default="generate.war">
+  <property name="dist.name" value="JSPBean" />
+  <property name="dist.dir" value="dist" />
+  
+  <target name="init">
+    <delete dir="${dist.dir}"/>
+    <delete dir="web/WEB-INF/classes"/>
+    <mkdir dir="web/WEB-INF/classes"/>
+    <mkdir dir="${dist.dir}" />
+  </target>
+  
+  <target name="compile" depends="init">
+    <javac includeantruntime="false"
+           srcdir="${basedir}/src" 
+           destdir="web/WEB-INF/classes" />             
+  </target>
+  
+  <target name="generate.war" depends="compile">
+    <jar destfile="${dist.dir}/${dist.name}.war" basedir="web" />
+  </target>
+</project>

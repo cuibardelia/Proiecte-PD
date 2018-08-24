@@ -1,0 +1,41 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="mycss.css">
+</head>  
+<body>
+  <center>
+  <h1> Pagina de apelare Servlet </h1>
+  <form method="get"
+      action="jsp/conversie.jsp">  
+      <table> 
+        <tr>
+          <td><label> Introduceti suma: </label></td>
+          <td>    
+             <input type="number" name="suma" size="5"
+             required min="1">
+          </td>
+        </tr>  
+        <tr>
+          <td><label> Alegeti valuta </label></td>
+          <td>
+             <input list="currency" name="valuta" placeholder="Selectati din lista">
+				<datalist id="currency">
+					<option value="EUR">
+					<option value="RON">
+					<option value="USD">
+				</datalist> 
+          </td>
+        </tr>
+        <tr>
+          <td>          
+             <p><input type="submit" value="Submit!!">
+          </td>
+        </tr>
+      </table>  
+
+  </form>
+  </center>
+</body>
+</html>
+
