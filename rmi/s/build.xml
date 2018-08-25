@@ -1,0 +1,59 @@
+<project name="Server" default="Server" basedir=".">
+    <description>Server actions </description>
+  
+  <property name="path" location=".."/>
+  <property name="interface.archive.name" value="iexchange.jar"/>
+  <property name="interface.jar.location" location="${path}/i" />
+  <property name="service-class" value="exchange.rmi.s.ExchangeImpl"  />
+  <property name="port" value="1099"/>
+  <property name="hostResources" value="localhost"/>
+  
+  <target name="Init">
+    <delete dir="mods"/>
+    <mkdir dir="mods"/>
+    <copy file="${interface.jar.location}/${interface.archive.name}" 
+          todir="${basedir}"/>
+    <!--<unjar src="${basedir}/${interface.archive.name}" dest="mods"/>-->
+    <unjar src="${interface.archive.name}" dest="mods"/>
+  </target>
+
+  <target name="Compile" depends="Init">
+    <javac srcdir="src" destdir="mods"
+       includeantruntime="false">
+       <compilerarg value="-Xlint"/>
+    </javac>
+  </target>
+
+  <target name="Archive">
+     <jar destfile="cmmdc.jar" basedir="${build.dir}"/>
+  </target>
+  
+  <target name="Rmi">
+     <exec executable="rmiregistry">
+       <env key="CLASSPATH" value="mods"/>
+       <arg value="${port}" />
+     </exec>
+  </target>
+  
+  
+  <target name="Server">
+     <java classname="${service-class}" fork="true"
+        modulepath="mods" module="sexchange">     	
+        <jvmarg value="-Djava.rmi.server.codebase=file:${path}/s/mods"/>
+               
+        <!--
+        <jvmarg value="-Djava.rmi.server.codebase=http://${hostResources}:8080/rmi/exchange.jar" />
+        -->
+        <!--
+        <jvmarg value="-Djava.rmi.server.codebase=ftp://${hostResources}:2121/rmi/exchange.jar" />
+        -->
+        <arg line="${port}"/>
+     </java>
+  </target> 
+  
+</project>
+
+
+
+
+

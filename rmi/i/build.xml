@@ -1,0 +1,25 @@
+<project name="Interface" default="Compile" basedir=".">
+  <property name="archive.name" value="iexchange"/>
+  <property name="build.dir" value="build"/>
+  
+  <target name="Init"> 
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <delete dir="${build.dir}"/>
+    <mkdir dir="${build.dir}"/>
+  </target>
+
+  <target name="Compile" depends="Init">
+    <javac srcdir="src" destdir="${build.dir}"
+      includeantruntime="false">
+       <compilerarg value="-Xlint"/>
+    </javac>
+    <jar basedir="${build.dir}" destfile="${archive.name}.jar"/>
+  </target>
+
+</project>
+
+
+
+
+
